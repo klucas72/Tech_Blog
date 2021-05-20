@@ -28,6 +28,7 @@
     "express-session": "^1.17.0",
     "mysql2": "^2.0.1",
     "nodemon": "^2.0.7",
-    "sequelize": "^5.21.2"
+    "sequelize": "^5.21.2",
+    "typescript": "^4.2.4"
   }
 }

@@ -78,37 +78,35 @@ router.post('/', (req, res) => {
     })
 });
 
-router.post('/login', (req, res) => {
-  User.findOne({
-    where: {
-      username: req.body.username,
-    },
-  })
-    .then(userData => {
-      if (!userData) {
-        res.status(400).json({ message: 'No user account found!' });
-        return;
-      }
+router.post('/login', async (req, res) => {
+  try {
+    const user = await User.findOne({
+      where: {
+        username: req.body.username
+      },
     })
 
-  const validPassword = userData.checkPassword(req.body.password);
-
-  if (!validPassword) {
-    res.status(400).json({ message: 'No user account found!' });
-    return;
-  }
-
-  req.session.save(() => {
-    req.session.userId = userData.id;
-    req.session.username = userData.username;
-    req.session.loggedIn = true;
-
-    res.json({ userData, message: 'You are now logged in!' });
-  })
-    .catch(err => {
-      console.log(err);
+    if (!user) {
       res.status(400).json({ message: 'No user account found!' });
-    })
+      return;
+    }
+
+    const validPassword = user.checkPassword(req.body.password);
+
+    if (!validPassword) {
+      res.status(400).json({ message: 'No user account found!' });
+      return;
+    }
+    req.session.save(() => {
+      req.session.userId = user.id;
+      req.session.username = user.username;
+      req.session.loggedIn = true;
+      res.json({ user, message: 'logged in!' })
+    });
+  }
+  catch (err) {
+    res.status(400).json(err)
+  }
 });
 
 router.post('/logout', (req, res) => {
