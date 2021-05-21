@@ -42,7 +42,7 @@ router.get('/', withAuth, (req, res) => {
 },
 
   router.get('/new', withAuth, (req, res) => {
-    res.render('new-post');
+    res.render('newPost');
   }),
 
   router.get('/edit/:id', withAuth, (req, res) => {

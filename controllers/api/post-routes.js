@@ -71,18 +71,17 @@ router.get('/:id', (req, res) => {
     });
 });
 
-router.post('/', withAuth, (req, res) => {
-  Post.create({
-    title: req.body.title,
-    content: req.body.content,
-    user_id: req.session.user_id
-  })
-    .then(postData => res.json(postData))
-    .catch(err => {
-      console.log(err);
-      res.status(500).json(err);
-    });
-})
+router.post('/', withAuth, async (req, res) => {
+  const body = req.body;
+  console.log(req.body);
+
+  try {
+    const newPost = await Post.create({ ...body, userId: req.session.userId });
+    res.json(newPost);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 
 router.put('/:id', withAuth, (req, res) => {
   Post.update({
