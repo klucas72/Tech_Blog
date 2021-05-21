@@ -6,14 +6,14 @@ router.get('/', withAuth, (req, res) => {
   Post.findAll({
 
     where: {
-      userId: req.session.userId,
+      user_id: req.session.userId,
     },
 
     attributes: [
       'id',
       'title',
       'created_at',
-      'post_content',
+      'content',
     ],
     include: [{
       model: Comment,

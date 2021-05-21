@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const { User, Post, Comment } = require('../../models');
+const bcrypt = require('bcrypt');
 
 router.get('/', (req, res) => {
   User.findAll({
@@ -85,14 +86,19 @@ router.post('/login', async (req, res) => {
         username: req.body.username
       },
     })
+    console.log(user.dataValues)
+    const { username, password } = user.dataValues;
 
-    if (!user) {
+    if (!username) {
       res.status(400).json({ message: 'No user account found!' });
       return;
     }
+    console.log(username, password)
+    const hashPw = await bcrypt.hash(password, 10);
+    console.log(hashPw)
 
     const validPassword = user.checkPassword(req.body.password);
-
+    console.log(validPassword);
     if (!validPassword) {
       res.status(400).json({ message: 'No user account found!' });
       return;

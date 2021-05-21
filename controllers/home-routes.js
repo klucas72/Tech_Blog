@@ -39,7 +39,7 @@ router.get('/post/:id', (req, res) => {
     where: {
       id: req.params.id
     },
-    attributes: ['id', 'title', 'created_at', 'post_content'],
+    attributes: ['id', 'title', 'created_at', 'content'],
     include: [{
       model: Comment,
       attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
@@ -75,7 +75,7 @@ router.get('/post-comments', (req, res) => {
     where: {
       id: req.params.id
     },
-    attributes: ['id', 'title', 'created_at', 'post_content'],
+    attributes: ['id', 'title', 'created_at', 'content'],
     include: [{
       model: Comment,
       attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
