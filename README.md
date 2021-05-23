@@ -18,7 +18,7 @@
 ## Usage
 * Once installed, launch application by running the node run watch command at the command prompt.  This will access and launch the application and the database in the background.  See images below for eexamples of use.
 
-![Screen capture of login screen.](./login.png "Login Image")
+![Screen capture of login screen.](./Login.png "Login Image")
 ![Screen capture of dashboard screen.](./dashboard.png "Dashboard Image")
     
 ## Credits
